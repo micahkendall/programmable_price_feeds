@@ -1,15 +1,17 @@
 # programmable_price_feeds
 
-Write validators in the `validators` folder, and supporting functions in the `lib` folder using `.ak` as a file extension.
+Prototype for price feeds programmable by stake validators.
 
-For example, as `validators/always_true.ak`
+Example validators in the `validators` folder, and supporting functions/types in the `lib` folder.
 
-```gleam
-validator {
-  fn spend(_datum: Data, _redeemer: Data, _context: Data) -> Bool {
-    True
-  }
-}
+## Documentation
+
+This is intended to be used as a library, so you might want to generate an HTML documentation for it.
+
+Use:
+
+```sh
+aiken docs
 ```
 
 ## Building
@@ -39,17 +41,3 @@ To run only tests matching the string `foo`, do:
 ```sh
 aiken check -m foo
 ```
-
-## Documentation
-
-If you're writing a library, you might want to generate an HTML documentation for it.
-
-Use:
-
-```sh
-aiken docs
-```
-
-## Resources
-
-Find more on the [Aiken's user manual](https://aiken-lang.org).
