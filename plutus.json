@@ -2,27 +2,74 @@
   "preamble": {
     "title": "micahkendall/programmable_price_feeds",
     "description": "Aiken contracts for project 'micahkendall/programmable_price_feeds'",
-    "version": "0.0.0",
+    "version": "0.0.2",
     "plutusVersion": "v2",
     "license": "Apache-2.0"
   },
   "validators": [
     {
-      "title": "hello.spend",
+      "title": "example_utiliser.spend_dollar_amount",
       "datum": {
-        "title": "datum",
-        "schema": {
-          "$ref": "#/definitions/programmable_price_feeds~1types~1Datum"
-        }
-      },
-      "redeemer": {
-        "title": "_redeemer",
+        "title": "_datum",
         "schema": {
           "$ref": "#/definitions/Data"
         }
       },
-      "compiledCode": "58910100003232323232323232322223253330083371e6eb8cc014c01c00520004890c48656c6c6f20576f726c642100149858c8010c94ccc020cdc3a400000226464a66601a601e0042930b1bae300d001300700416300837540066600200290001111199980319b8700100300a233330050053370000890011806000801001118021baa0015734aae7555cf2ab9f5742ae89",
-      "hash": "c123d0abad1de6b67bfcd9d37a98dab5b9a1e2e1761185f21a1d7d92"
+      "redeemer": {
+        "title": "redeemer",
+        "schema": {
+          "$ref": "#/definitions/example_utiliser~1MyRedeemer"
+        }
+      },
+      "parameters": [
+        {
+          "title": "price_feed_script",
+          "schema": {
+            "$ref": "#/definitions/ByteArray"
+          }
+        },
+        {
+          "title": "price_feed_tag",
+          "schema": {
+            "$ref": "#/definitions/Data"
+          }
+        }
+      ],
+      "compiledCode": "59016e01000032323232323232323232232222232533300b3233332322223375e646600a00600266e952004330153374a90001980a99ba548008cc054dd4801a5eb812f5c097ae03374a90001980a800a5eb80c0040048894ccc048008530103d87a800013232323253330133375e00a002266e952000330170024bd70099980380380180298098019809801180b001980a0010039bab33009300b33009300b0034800120120013374a9000198079806191919bb030120023012001301200137586601060140029000198079806991919bb03012002301200130120013758660106014002900019807802a5eb80526163200332533300b3370e900000089919299980818098010991924c6eb4c040008dd698070008b191919bb03013002301300130130013758602200260140062c60166ea8008dd700099800800a40004444666600c66e1c00400c02c8cccc014014cdc000224004601a002004004460086ea80055cd2ab9d5573caae7d5d02ba15745",
+      "hash": "84b49b89c276f99b52ae60fd643eddf9a67733962f5b12e58f86b729"
+    },
+    {
+      "title": "price_feed.basic_feed",
+      "redeemer": {
+        "title": "redeemer",
+        "schema": {
+          "$ref": "#/definitions/programmable_price_feeds~1types~1PriceFeed$Void"
+        }
+      },
+      "compiledCode": "58b301000032323232323232323222325333007323232323370e0060026eb4c038004c038008dd6980600098030008a4c2c6400664a66600e66e1d20000011323232323232533301030120021498594ccc030cdc3a4000601a6ea8c040004526163010002375a601c002601c0046eb4c030004c01800c58c01cdd500119800800a40004444666600c66e1c00400c0288cccc014014cdc0002240046018002004004460086ea80055cd2ab9d5573caae7d5d0aba201",
+      "hash": "ffd788790eedf468fe8b84d5cfd200fb0d78ae3056808851d8fb0da2"
+    },
+    {
+      "title": "price_feed.named_feed",
+      "redeemer": {
+        "title": "redeemer",
+        "schema": {
+          "$ref": "#/definitions/programmable_price_feeds~1types~1PriceFeed$ByteArray"
+        }
+      },
+      "compiledCode": "58c701000032323232323232323222325333007323232323232533300d3370e00a006266e3c0052201086164612f695553440014a06eb8c040004c040008dd6980700098070011bad300c0013006001149858c800cc94ccc01ccdc3a40000022646464646464a66602060240042930b1bae30100013010002375a601c002601c0046eb4c030004c01800c58c01cdd500119800800a40004444666600c66e1c00400c0288cccc014014cdc0002240046018002004004460086ea80055cd2ab9d5573caae7d5d0aba201",
+      "hash": "956e7eca6e26320abe5a6fa6eef6659a811267d68aa46a070cb6fd64"
+    },
+    {
+      "title": "price_feed.tagged_feed",
+      "redeemer": {
+        "title": "redeemer",
+        "schema": {
+          "$ref": "#/definitions/programmable_price_feeds~1types~1PriceFeed$Int"
+        }
+      },
+      "compiledCode": "58bd01000032323232323232323222325333007323232323232533300d3370e00a006266e1c005200014a06eb4c040004c040008dd6980700098070011bad300c0013006001149858c800cc94ccc01ccdc3a40000022646464646464a66602060240042930b1bad30100013010002375a601c002601c0046eb4c030004c01800c58c01cdd500119800800a40004444666600c66e1c00400c0288cccc014014cdc0002240046018002004004460086ea80055cd2ab9d5573caae7d5d0aba201",
+      "hash": "48702e5ca4ef7f3a948e056e8cb34a33e6717e014a28a19e336f2ccb"
     }
   ],
   "definitions": {
@@ -33,19 +80,118 @@
       "title": "Data",
       "description": "Any Plutus data."
     },
-    "programmable_price_feeds/types/Datum": {
-      "title": "Datum",
-      "description": "Custom type",
+    "Int": {
+      "dataType": "integer"
+    },
+    "Tuple$Int_Int": {
+      "title": "Tuple",
+      "dataType": "list",
+      "items": [
+        {
+          "$ref": "#/definitions/Int"
+        },
+        {
+          "$ref": "#/definitions/Int"
+        }
+      ]
+    },
+    "Void": {
+      "title": "Unit",
+      "description": "The nullary constructor.",
       "anyOf": [
         {
-          "title": "Datum",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": []
+        }
+      ]
+    },
+    "example_utiliser/MyRedeemer": {
+      "title": "MyRedeemer",
+      "anyOf": [
+        {
+          "title": "MyRedeemer",
           "dataType": "constructor",
           "index": 0,
           "fields": [
             {
-              "title": "message",
-              "description": "A utf8 encoded message",
+              "title": "price",
+              "$ref": "#/definitions/Tuple$Int_Int"
+            }
+          ]
+        }
+      ]
+    },
+    "programmable_price_feeds/types/PriceFeed$ByteArray": {
+      "title": "PriceFeed",
+      "description": "Price Feeds:\n * Any price feed script should **only support one** type variant of a in PriceFeed\\<a\\>. <br/>\n * All utilisers should take the pair, price_feed_script & tag, by their parameters. <br/>\n * This allows any contract to be parameterised with any particular feed from any script. <br/>\n * You can support a single price feed per script (tag: Void), or support many feeds (tag: Int/ByteArray) <br/>\n * Tagged feed is good for extensibility in e.g a map. Any type can be used. <br/>",
+      "anyOf": [
+        {
+          "title": "PriceFeed",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "title": "ratioX",
+              "$ref": "#/definitions/Int"
+            },
+            {
+              "title": "ratioY",
+              "$ref": "#/definitions/Int"
+            },
+            {
+              "title": "tag",
               "$ref": "#/definitions/ByteArray"
+            }
+          ]
+        }
+      ]
+    },
+    "programmable_price_feeds/types/PriceFeed$Int": {
+      "title": "PriceFeed",
+      "description": "Price Feeds:\n * Any price feed script should **only support one** type variant of a in PriceFeed\\<a\\>. <br/>\n * All utilisers should take the pair, price_feed_script & tag, by their parameters. <br/>\n * This allows any contract to be parameterised with any particular feed from any script. <br/>\n * You can support a single price feed per script (tag: Void), or support many feeds (tag: Int/ByteArray) <br/>\n * Tagged feed is good for extensibility in e.g a map. Any type can be used. <br/>",
+      "anyOf": [
+        {
+          "title": "PriceFeed",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "title": "ratioX",
+              "$ref": "#/definitions/Int"
+            },
+            {
+              "title": "ratioY",
+              "$ref": "#/definitions/Int"
+            },
+            {
+              "title": "tag",
+              "$ref": "#/definitions/Int"
+            }
+          ]
+        }
+      ]
+    },
+    "programmable_price_feeds/types/PriceFeed$Void": {
+      "title": "PriceFeed",
+      "description": "Price Feeds:\n * Any price feed script should **only support one** type variant of a in PriceFeed\\<a\\>. <br/>\n * All utilisers should take the pair, price_feed_script & tag, by their parameters. <br/>\n * This allows any contract to be parameterised with any particular feed from any script. <br/>\n * You can support a single price feed per script (tag: Void), or support many feeds (tag: Int/ByteArray) <br/>\n * Tagged feed is good for extensibility in e.g a map. Any type can be used. <br/>",
+      "anyOf": [
+        {
+          "title": "PriceFeed",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "title": "ratioX",
+              "$ref": "#/definitions/Int"
+            },
+            {
+              "title": "ratioY",
+              "$ref": "#/definitions/Int"
+            },
+            {
+              "title": "tag",
+              "$ref": "#/definitions/Void"
             }
           ]
         }

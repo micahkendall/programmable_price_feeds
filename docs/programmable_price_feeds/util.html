@@ -120,13 +120,13 @@
       <h2>
         <a href="../">programmable_price_feeds</a>
         <span id="project-version">
-          <span>v0.0.1 </span>
+          <span>v0.0.2 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.0.1";
+            const currentVersion = "v0.0.2";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -265,6 +265,12 @@
       
     </div>
     <div class="rendered-markdown"><p>If you can reduce the cost of validate, I encourage you to PR.</p>
+<pre><code class="language-aiken">let price_feed_script = &quot;99634e17a7de2dbd7a478e994b334457f593cdd3d74279ad55d7418ec84d2a69&quot;
+let price_feed_tag = Void
+let check_feed =
+     feed_utils.validate(price_feed_script, ctx.transaction.redeemers, _)
+check_feed(PriceFeed(redeemer.price.1st, redeemer.price.2nd, price_feed_tag))
+</code></pre>
 </div>
   </div>
   
@@ -341,8 +347,8 @@
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.11-alpha"></script>
-    <script src="../js/index.js?v=1688377631"></script>
+    <script src="../js/index.js?v=1688378156"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1688377631"></script>
+    <script src="../search-data.js?v=1688378156"></script>
   </body>
 </html>
