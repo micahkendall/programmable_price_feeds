@@ -1,0 +1,14 @@
+name = "micahkendall/programmable_price_feeds"
+version = "0.0.0"
+license = "Apache-2.0"
+description = "Aiken contracts for project 'micahkendall/programmable_price_feeds'"
+
+[repository]
+user = "micahkendall"
+project = "programmable_price_feeds"
+platform = "github"
+
+[[dependencies]]
+name = "aiken-lang/stdlib"
+version = "1.1.0"
+source = "github"
