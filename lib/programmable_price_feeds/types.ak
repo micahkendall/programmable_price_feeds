@@ -12,6 +12,9 @@ pub type PriceFeed<a> {
   tag: a,
 }
 
+pub type PriceFeeds<a> =
+  List<PriceFeed<a>>
+
 /// ScriptHash
 pub type ScriptHash =
   ByteArray
