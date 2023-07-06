@@ -20,6 +20,10 @@ You probably should:
 - Make your validator throw/error if the UTxO you reference doesn't have the **exact** same value as what is provided through the `programmable_price_feeds.types.PriceFeeds<a>` redeemer. In aiken you can use `aiken/stdlib/math/rational.{compare}` after parsing both in as rationals.
 - Make your validator throw/error if the UTxO referenced is out of date.
 
+For scripting compatibility:
+- Please allow other scripts to run in the same transaction
+- Allow other value to be minted in the same transaction
+
 ## programmable_price_feeds
 
 Prototype for price feeds programmable by stake validators.
